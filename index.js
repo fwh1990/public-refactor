@@ -46,7 +46,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
   }
 
   const sourceContent = fs.readFileSync(file).toString();
-  let distContent;
+  let distContent, matched;
   const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*\s+((?:abstract\s+)?[a-z0-9_]+?)\s*\(/ig;
 
   while (matched = exp.exec(sourceContent)) {
@@ -57,7 +57,9 @@ const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
     distContent = distContent.replace(new RegExp(`\\b(\s*)(public\s)?(\s*)?(\s*?${matched[2]}\s*\\()`), `$1${matched[1]} $3$4`);
   }
 
-  fs.writeFileSync(definitionFilePath, distContent);
+  if (distContent) {
+    fs.writeFileSync(definitionFilePath, distContent);
+  }
 });
 
 console.log(chalk.green.bold('\nPublic Refactor Done.\n'));
