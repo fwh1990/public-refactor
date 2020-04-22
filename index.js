@@ -47,7 +47,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
 
   const sourceContent = fs.readFileSync(file).toString();
   let distContent, matched;
-  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*\s+((?:abstract\s+)?[a-z0-9_]+)\s*/ig;
+  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*\s+((?:(?:abstract|readonly)\s+)?[a-z0-9_]+)\s*/ig;
 
   while (matched = exp.exec(sourceContent)) {
     if (distContent === undefined) {

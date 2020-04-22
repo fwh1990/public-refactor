@@ -5,7 +5,7 @@ export abstract class Demo {
   public props345: number = 3;
 
   public/*protected*/ props1 = 3;
-  public/*protected*/ props2: number = 3;
+  public/*protected*/ readonly props2: number = 3;
   public/*private*/ props3 : string = '3';
 
   public props123: number = 3;
