@@ -1,0 +1,23 @@
+{
+  "name": "public-refactor",
+  "version": "0.0.5",
+  "main": "index.js",
+  "repository": "git@github.com:fwh1990/public-refactor.git",
+  "author": "范文华 <531362022@qq.com>",
+  "scripts": {
+    "snapshot": "tsc test.ts --declaration && rm test.js && node index.js --src . --dist ."
+  },
+  "license": "MIT",
+  "bin": "index.js",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "glob": "^7.1.6",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^13.13.2",
+    "typescript": "^3.8.3"
+  }
+}
