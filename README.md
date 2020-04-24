@@ -1,3 +1,7 @@
+# public-refactor
+
+Refactor public modifier to protected or private in "*.d.ts" files after run tsc.
+
 # Installation
 
 ```bash
