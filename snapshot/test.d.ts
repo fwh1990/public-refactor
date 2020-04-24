@@ -1,4 +1,10 @@
 export declare abstract class Demo {
+    protected static hello: number;
+    private static hello1(): void;
+    static hello23: number;
+    protected static hello2: string;
+    static hello8: number;
+    static hello9: any;
     props: number;
     props12: number;
     props345: number;
@@ -7,6 +13,7 @@ export declare abstract class Demo {
     private props3: string;
     props123: number;
     props3456: number;
+    private props876: number;
     demo(): void;
     protected demo1(): void;
     protected demo2(): void;

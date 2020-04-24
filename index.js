@@ -37,7 +37,6 @@ const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
   }
 
   const relativePath = file.replace(/\.ts$/, '.d.ts').replace(fullSrc, '');
-
   const definitionFilePath = path.resolve(fullDist, relativePath);
 
   if (!fs.existsSync(definitionFilePath)) {
@@ -46,22 +45,25 @@ const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
   }
 
   const sourceContent = fs.readFileSync(file).toString();
-  let distContent, matched;
-  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*\s+((?:(?:abstract|readonly)\s+)?[a-z0-9_]+)\s*/ig;
+  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*\s+((?:(?:abstract|readonly|static)\s+)?[a-z0-9_]+)\s*/ig;
+  let distContent, matched, records = [];
 
   while (matched = exp.exec(sourceContent)) {
     if (distContent === undefined) {
       distContent = fs.readFileSync(definitionFilePath).toString();
     }
 
-    console.log(matched[1], matched[2]);
-
+    records.push(matched);
     distContent = distContent.replace(new RegExp(`\\b(\s*)(public\s)?(\s*)?(\s*?${matched[2]})(:|\\()`), `$1${matched[1]} $3$4$5`);
   }
 
   if (distContent) {
     fs.writeFileSync(definitionFilePath, distContent);
+    console.log(`\n${chalk.green.bold('Refactoring')} ${chalk.bold(definitionFilePath)}\n`);
+    records.forEach((record) => {
+      console.log(chalk.green('[√]'), record[1], record[2]);
+    });
   }
 });
 
-console.log(chalk.green.bold('\nPublic Refactor Done.\n'));
+console.log('');

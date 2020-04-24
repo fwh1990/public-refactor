@@ -10,6 +10,13 @@ yarn add public-refactor --dev
 
 ```typescript
 export class Demo {
+  public/*protected*/ static hello: number = 1;
+  public/*private*/ static hello1(): void {};
+  public static hello23: number = 2;
+  public/*protected*/ static hello2: string = '2';
+  public static hello8 = 3;
+  public static hello9;
+
   public props: number = 3;
   public props12: number = 3;
   public props345 = 3;
@@ -18,15 +25,14 @@ export class Demo {
   public/*private*/ props3 : string = '3';
   public props123: number = 3;
   public props3456: number = 3;
+  public/*private*/ props876!: number;
 
   public demo() {}
-
   public/*protected*/ demo1() {}
-
   public/*protected*/ demo2() {}
-
   public/*private*/ demo3() {}
-
+  public demo4() {}
+  public/*protected*/ abstract dem5(): void;
 }
 ```
 
@@ -50,6 +56,13 @@ npx public-refactor --src ./src --dist ./build
 ### Final output to file `./build/index.d.ts`
 ```typescript
 export declare class Demo {
+    protected static hello: number;
+    private static hello1(): void;
+    static hello23: number;
+    protected static hello2: string;
+    static hello8: number;
+    static hello9: any;
+
     props: number;
     props12: number;
     props345: number;
@@ -58,11 +71,14 @@ export declare class Demo {
     private props3: string;
     props123: number;
     props3456: number;
+    private props876: number;
+
     demo(): void;
     protected demo1(): void;
     protected demo2(): void;
     private demo3(): void;
     demo4(): void;
+    protected abstract dem5(): void;
 }
 
 ```
