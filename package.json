@@ -5,7 +5,7 @@
   "repository": "git@github.com:fwh1990/public-refactor.git",
   "author": "范文华 <531362022@qq.com>",
   "scripts": {
-    "test": "rm -rf snapshot/* && tsc --outDir snapshot --declaration tests/*.ts && rm -rf snapshot/*.js && node index.js --src tests --dist snapshot"
+    "test": "sh test.sh"
   },
   "license": "MIT",
   "bin": "index.js",

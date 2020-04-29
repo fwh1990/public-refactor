@@ -32,11 +32,7 @@ if (!fs.statSync(fullDist).isDirectory()) {
 }
 
 const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
-  if (/\.d\.ts$/.test(file)) {
-    return;
-  }
-
-  const relativePath = file.replace(/\.ts$/, '.d.ts').replace(fullSrc, '');
+  const relativePath = file.replace(/(?:\.d)?\.ts$/, '.d.ts').replace(fullSrc, '');
   const definitionFilePath = path.resolve(fullDist, relativePath);
 
   if (!fs.existsSync(definitionFilePath)) {
@@ -45,12 +41,16 @@ const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
   }
 
   const sourceContent = fs.readFileSync(file).toString();
-  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*\s+((?:(?:abstract|readonly|static)\s+)?[a-z0-9_]+)\s*/ig;
+  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|readonly|static)\s+)?[a-z0-9_]+)\s*/ig;
   let distContent, matched, records = [];
 
   while (matched = exp.exec(sourceContent)) {
     if (distContent === undefined) {
       distContent = fs.readFileSync(definitionFilePath).toString();
+
+      if (/\.d\.ts$/.test(file)) {
+        distContent = distContent.replace(/public\s*\/\*+\s*(protected|private)\s*\*+\/\s*/ig, '');
+      }
     }
 
     records.push(matched);
