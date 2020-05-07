@@ -14,6 +14,9 @@ yarn add public-refactor --dev
 
 ```typescript
 export class Demo {
+  static readonly state: string;
+  public/*protected*/ static readonly state1: string;
+  public/*private*/ static readonly state2: string;
   public/*protected*/ static hello: number = 1;
   public/*private*/ static hello1(): void {};
   public static hello23: number = 2;
@@ -60,6 +63,9 @@ npx public-refactor --src ./src --dist ./build
 ### Final output to file `./build/index.d.ts`
 ```typescript
 export declare class Demo {
+    static readonly state: string;
+    protected static readonly state1: string;
+    private static readonly state2: string;
     protected static hello: number;
     private static hello1(): void;
     static hello23: number;

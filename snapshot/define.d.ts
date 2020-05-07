@@ -1,4 +1,7 @@
 export declare abstract class Demo {
+    static readonly state: string;
+    protected static readonly state1: string;
+    private static readonly state2: string;
     protected static hello: number;
     private static hello1(): void;
     static hello23: number;
