@@ -15,6 +15,8 @@ export declare abstract class Demo {
     props3456: number;
     private props876: number;
     demo(): void;
+    demo1_1(demo1: number): void;
+    demo1_2(demo1: string, demo2: number): void;
     protected demo1(): void;
     protected demo2(): void;
     private demo3(): void;

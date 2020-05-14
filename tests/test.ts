@@ -17,6 +17,15 @@ export abstract class Demo {
   public/*private*/ props876!: number;
 
   public demo() {}
+
+  public demo1_1(demo1: number) {
+    console.log(demo1);
+  }
+
+  public demo1_2(demo1: string,  demo2: number) {
+    console.log(demo1, demo2);
+  }
+
   public/*protected*/demo1() {}
   public/*protected*/ demo2() {}
   public/*private*/ demo3() {}
