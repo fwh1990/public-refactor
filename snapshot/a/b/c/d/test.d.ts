@@ -22,4 +22,5 @@ export declare abstract class Demo {
     private demo3(): void;
     demo4(): void;
     protected abstract dem5(): void;
+    protected dem6: () => void;
 }

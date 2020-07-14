@@ -31,4 +31,5 @@ export abstract class Demo {
   public/*private*/ demo3() {}
   public demo4() {}
   public/*protected*/ abstract dem5(): void;
+  declare public/*protected*/ dem6: () => void;
 }
