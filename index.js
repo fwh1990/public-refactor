@@ -31,7 +31,7 @@ if (!fs.statSync(fullDist).isDirectory()) {
   process.exit(1);
 }
 
-const files = glob.sync(path.resolve(fullSrc, '**', '*.ts')).forEach((file) => {
+const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**', '**', '**', '**', '**', '*.ts')).forEach((file) => {
   const relativePath = file.replace(/(?:\.d)?\.ts$/, '.d.ts').replace(fullSrc, '');
   const definitionFilePath = path.resolve(fullDist, relativePath);
 
