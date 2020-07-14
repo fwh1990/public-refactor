@@ -34,4 +34,7 @@ export abstract class Demo {
   public demo4() {}
   public/*protected*/ abstract dem5(): void;
   declare public/*protected*/ dem6: () => void;
+  public/*protected*/ demo7<T extends Function>(fn: T): T {
+    return fn;
+  }
 }

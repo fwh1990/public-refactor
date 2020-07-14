@@ -25,4 +25,5 @@ export declare abstract class Demo {
     public/*private*/ demo3(): void;
     demo4(): void;
     public/*protected*/ abstract dem5(): void;
+    public/*protected*/ demo7<T extends Function>(fn: T): T;
 }

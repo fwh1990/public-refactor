@@ -25,4 +25,5 @@ export declare abstract class Demo {
     demo4(): void;
     protected abstract dem5(): void;
     protected dem6: () => void;
+    protected demo7<T extends Function>(fn: T): T;
 }

@@ -54,7 +54,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
     }
 
     records.push(matched);
-    distContent = distContent.replace(new RegExp(`^(\\s+)(public\s+)?(${matched[2]})(\\?\\s*:|:|\\()`, 'm'), `$1${matched[1]} $3$4`);
+    distContent = distContent.replace(new RegExp(`^(\\s+)(public\s+)?(${matched[2]})(\\?\\s*:|:|\\(|\\<)`, 'm'), `$1${matched[1]} $3$4`);
   }
 
   if (distContent) {
