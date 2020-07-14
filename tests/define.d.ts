@@ -3,6 +3,7 @@ export declare abstract class Demo {
     public/*protected*/ static readonly state1: string;
     public/*private*/ static readonly state2: string;
     public/*protected*/ static hello: number;
+    public/*protected*/ static hello7?: number;
     public/*private*/ static hello1(): void;
     static hello23: number;
     public/*protected*/ static hello2: string;
@@ -13,6 +14,7 @@ export declare abstract class Demo {
     props345: number;
     public/*protected*/ props1: number;
     public/*protected*/ readonly props2: number;
+    public/*protected*/ readonly props21?: number;
     public/*private*/ props3: string;
     props123: number;
     props3456: number;

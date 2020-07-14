@@ -2,11 +2,13 @@ export declare abstract class Demo {
     protected static hello: number;
     private static hello1(): void;
     static hello23: number;
+    protected static hello234?: number;
     protected static hello2: string;
     static hello8: number;
     static hello9: any;
     props: number;
     props12: number;
+    protected props1234?: number;
     props345: number;
     protected props1: number;
     protected readonly props2: number;
