@@ -1,5 +1,9 @@
 export declare abstract class Demo {
     static readonly state: string;
+    public/*protected*/ declare virtual1: string;
+    public/*protected*/ declare virtual2: () => string;
+    declare virtual3: string;
+    public/*private*/ declare readonly virtual4: () => string;
     public/*protected*/ static readonly state1: string;
     public/*private*/ static readonly state2: string;
     public/*protected*/ static hello: number;

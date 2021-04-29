@@ -41,7 +41,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
   }
 
   const sourceContent = fs.readFileSync(file).toString();
-  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|static readonly|static|readonly)\s+)?[a-z0-9_]+)\s*/ig;
+  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|static readonly|static|readonly|declare readonly|declare)\s+)?[a-z0-9_]+)\s*/ig;
   let distContent, matched, records = [];
 
   while (matched = exp.exec(sourceContent)) {
