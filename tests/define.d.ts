@@ -4,6 +4,7 @@ export declare abstract class Demo {
     public/*protected*/ declare virtual2: () => string;
     declare virtual3: string;
     public/*private*/ declare readonly virtual4: () => string;
+    public/*private*/ readonly declare virtual5: { hello: number };
     public/*protected*/ static readonly state1: string;
     public/*private*/ static readonly state2: string;
     public/*protected*/ static hello: number;

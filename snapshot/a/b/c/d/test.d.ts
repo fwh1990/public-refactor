@@ -1,5 +1,12 @@
 export declare abstract class Demo {
     protected static hello: number;
+    protected virtual1: string;
+    protected virtual2: () => string;
+    virtual3: string;
+    private readonly virtual4: () => string;
+    private readonly virtual5: {
+        hello: number;
+    };
     private static hello1(): void;
     static hello23: number;
     protected static hello234?: number;

@@ -31,6 +31,8 @@ if (!fs.statSync(fullDist).isDirectory()) {
   process.exit(1);
 }
 
+const createPattern = (property) => new RegExp(`^(\\s+)(public\s+)?(${property})(\\?\\s*:|:|\\(|\\<)`, 'm');
+
 const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**', '**', '**', '**', '**', '*.ts')).forEach((file) => {
   const relativePath = file.replace(/(?:\.d)?\.ts$/, '.d.ts').replace(fullSrc, '');
   const definitionFilePath = path.resolve(fullDist, relativePath);
@@ -41,7 +43,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
   }
 
   const sourceContent = fs.readFileSync(file).toString();
-  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|static readonly|static|readonly|declare readonly|declare)\s+)?[a-z0-9_]+)\s*/ig;
+  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|static readonly|readonly declare|declare readonly|static|readonly|declare)\s+)?[a-z0-9_]+)\s*/ig;
   let distContent, matched, records = [];
 
   while (matched = exp.exec(sourceContent)) {
@@ -53,8 +55,24 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
       }
     }
 
+    const modifier = matched[1];
+    let property = matched[2];
+
     records.push(matched);
-    distContent = distContent.replace(new RegExp(`^(\\s+)(public\s+)?(${matched[2]})(\\?\\s*:|:|\\(|\\<)`, 'm'), `$1${matched[1]} $3$4`);
+
+    if (~property.indexOf('declare')) {
+      const nextDistContent = distContent.replace(createPattern(property), (_all, $1, _2, $3, $4) => {
+        return `${$1}${modifier} ${$3.replace(/(\s+declare|declare\s+|declare)/, '')}${$4}`;
+      });
+
+      if (distContent === nextDistContent) {
+        distContent = distContent.replace(createPattern(property.replace(/(\s+declare|declare\s+|declare)/, '')), `$1${modifier} $3$4`);
+      } else {
+        distContent = nextDistContent;
+      }
+    } else {
+      distContent = distContent.replace(createPattern(property), `$1${modifier} $3$4`);
+    }
   }
 
   if (distContent) {
