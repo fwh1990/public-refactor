@@ -33,4 +33,5 @@ export declare abstract class Demo {
     protected abstract dem5(): void;
     protected dem6: () => void;
     protected demo7<T extends Function>(fn: T): T;
+    protected demo8(): Promise<any>;
 }

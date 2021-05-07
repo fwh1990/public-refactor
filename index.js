@@ -43,7 +43,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
   }
 
   const sourceContent = fs.readFileSync(file).toString();
-  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|static readonly|readonly declare|declare readonly|static|readonly|declare)\s+)?[a-z0-9_]+)\s*/ig;
+  const exp = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*((?:(?:abstract|static readonly|readonly declare|declare readonly|static|readonly|declare|async)\s+)?[a-z0-9_]+)\s*/ig;
   let distContent, matched, records = [];
 
   while (matched = exp.exec(sourceContent)) {
@@ -59,6 +59,10 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
     let property = matched[2];
 
     records.push(matched);
+
+    if (~property.indexOf('async')) {
+      property = property.replace(/(\s+async|async\s+|async)/, '');
+    }
 
     if (~property.indexOf('declare')) {
       const nextDistContent = distContent.replace(createPattern(property), (_all, $1, _2, $3, $4) => {

@@ -31,4 +31,6 @@ export declare abstract class Demo {
     demo4(): void;
     public/*protected*/ abstract dem5(): void;
     public/*protected*/ demo7<T extends Function>(fn: T): T;
+
+    public/*protected*/ demo8(): Promise<any>;
 }

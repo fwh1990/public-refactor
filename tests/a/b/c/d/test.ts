@@ -42,4 +42,6 @@ export abstract class Demo {
   public/*protected*/ demo7<T extends Function>(fn: T): T {
     return fn;
   }
+
+  public/*protected*/ async demo8(): Promise<any> {}
 }
