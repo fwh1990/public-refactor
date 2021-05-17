@@ -33,9 +33,7 @@ if (!fs.statSync(fullDist).isDirectory()) {
 
 const createPattern = (property) => new RegExp(`^(\\s+)(public\s+)?(${property})(\\?\\s*:|:|\\(|\\<)`, 'm');
 
-const pattern1 = /public\s*\/\*+\s*(protected|private)\s*\*+\/\s*(abstract|static readonly|readonly declare|declare readonly|static|readonly|declare|async)?\s*([a-z0-9_]+)\s*/ig;
-// For prettier
-const pattern2 = /public\s*(abstract|static readonly|readonly declare|declare readonly|static|readonly|declare|async)?\s*\/\*+\s*(protected|private)\s*\*+\/\s*([a-z0-9_]+)\s*/ig;
+const pattern1 = /public\s*(?:\/\*+\s*(protected|private)\s*\*+\/)?\s*(abstract|static readonly|readonly declare|declare readonly|static|readonly|declare|async)?\s*(?:\/\*+\s*(protected|private)\s*\*+\/)?\s*([a-z0-9_]+)\s*/ig;
 
 const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**', '**', '**', '**', '**', '*.ts')).forEach((file) => {
   const relativePath = file.replace(/(?:\.d)?\.ts$/, '.d.ts').replace(fullSrc, '');
@@ -48,9 +46,13 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
 
   const sourceContent = fs.readFileSync(file).toString();
 
-  let distContent, matched1, matched2, records = [];
+  let distContent, matched, records = [];
 
-  while (matched1 = pattern1.exec(sourceContent) || (matched2 = pattern2.exec(sourceContent))) {
+  while (matched = pattern1.exec(sourceContent)) {
+    if (!matched[1] && !matched[3]) {
+      continue;
+    }
+
     if (distContent === undefined) {
       distContent = fs.readFileSync(definitionFilePath).toString();
 
@@ -59,16 +61,10 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
       }
     }
 
-    if (matched2) {
-      [matched2[1], matched2[2]] = [matched2[2], matched2[1]];
-    }
+    const modifier = matched[1] || matched[3];
+    let property = (matched[2] ? matched[2].trimRight() + ' ' : '') + matched[4].trimLeft();
 
-    const matched = matched1 || matched2;
-
-    const modifier = matched[1];
-    let property = (matched[2] ? matched[2].trimRight() + ' ' : '') + matched[3].trimLeft();
-
-    records.push(matched);
+    records.push([modifier, property]);
 
     if (~property.indexOf('async')) {
       property = property.replace(/(\s+async|async\s+|async)/, '');
@@ -93,7 +89,7 @@ const files = glob.sync(path.resolve(fullSrc, '**', '**', '**', '**', '**', '**'
     fs.writeFileSync(definitionFilePath, distContent);
     console.log(`\n${chalk.green.bold('Refactoring')} ${chalk.bold(definitionFilePath)}\n`);
     records.forEach((record) => {
-      console.log(chalk.green('[√]'), record[1], record[2]);
+      console.log(chalk.green('[√]'), record[0], record[1]);
     });
   }
 });
