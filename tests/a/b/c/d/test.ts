@@ -5,10 +5,12 @@ export abstract class Demo {
   declare virtual3: string;
   public/*private*/ declare readonly virtual4: () => string;
   public/*private*/ readonly declare virtual5: { hello: number };
+  public readonly declare /*private*/ virtual7: { hello: number };
   public/*private*/static hello1(): void {};
   public static hello23: number = 2;
   public/*protected*/ static hello234?: number = 3;
   public/*protected*/ static hello2: string = '2';
+  public static /*protected*/ hello3: string = '2';
   public static hello8 = 3;
   public static hello9;
 

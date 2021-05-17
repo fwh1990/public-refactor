@@ -7,7 +7,9 @@ export declare abstract class Demo {
     public/*private*/ readonly declare virtual5: { hello: number };
     public/*protected*/ static readonly state1: string;
     public/*private*/ static readonly state2: string;
+    public static readonly /*private*/ state3: string;
     public/*protected*/ static hello: number;
+    public static /*protected*/ hello6: number;
     public/*protected*/ static hello7?: number;
     public/*private*/ static hello1(): void;
     static hello23: number;

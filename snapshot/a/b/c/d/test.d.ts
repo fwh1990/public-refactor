@@ -7,10 +7,14 @@ export declare abstract class Demo {
     private readonly virtual5: {
         hello: number;
     };
+    private readonly virtual7: {
+        hello: number;
+    };
     private static hello1(): void;
     static hello23: number;
     protected static hello234?: number;
     protected static hello2: string;
+    protected static hello3: string;
     static hello8: number;
     static hello9: any;
     props: number;
