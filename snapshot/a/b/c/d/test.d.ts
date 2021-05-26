@@ -27,6 +27,8 @@ export declare abstract class Demo {
     props123: number;
     props3456: number;
     private props876: number;
+    private propsX: string;
+    protected propsY: string;
     demo(): void;
     demo1_1(demo1: number): void;
     demo1_2(demo1: string, demo2: number): void;
@@ -38,4 +40,5 @@ export declare abstract class Demo {
     protected dem6: () => void;
     protected demo7<T extends Function>(fn: T): T;
     protected demo8(): Promise<any>;
+    protected demo9(): Promise<any>;
 }

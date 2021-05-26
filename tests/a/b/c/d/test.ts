@@ -24,6 +24,8 @@ export abstract class Demo {
   public props123: number = 3;
   public props3456: number = 3;
   public/*private*/ props876!: number;
+  /*private*/ public propsX: string;
+  /*protected*/public propsY: string;
 
   public demo() {}
 
@@ -46,4 +48,5 @@ export abstract class Demo {
   }
 
   public/*protected*/ async demo8(): Promise<any> {}
+  /*protected*/ public async demo9(): Promise<any> {}
 }
